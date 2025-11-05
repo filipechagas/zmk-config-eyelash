@@ -19,6 +19,7 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/ext_power.h>
 
 #define QWERTY_L 0
 #define SYM_L    1
@@ -133,10 +134,19 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
                 default_layer {
                         display-name = "QWERTY";
                         bindings = <
-   &trave          &kp Q          &kp W             &kp E             &kp R           &kp T                                 &kp UP                &kp Y       &kp U                    &kp I              &kp O             &kp P             &kp BSPC
-   &mt LCTRL ESC   &hml LCTRL A   &hml LEFT_ALT S   &hml LEFT_WIN D   &hml LSHIFT F   &kp G                       &kp LEFT  &kp ENTER  &kp RIGHT  &kp H       &hmr RSHIFT J            &hmr RIGHT_WIN K   &hmr LEFT_ALT L   &hmr RCTRL SEMI   &kp SINGLE_QUOTE
-   &kp LSHFT       &kp Z          &kp X             &kp C             &kp V           &kp B        &kp SPACE                &kp DOWN              &kp N       &kp M                    &kp COMMA          &kp DOT           &kp FSLH          &kp RSHFT
-                                                    &lt NAV_L ESC     &lt NUM_L TAB   &mt LEFT_WIN SPACE                                          &kp ENTER   &lt SYM_L SINGLE_QUOTE   &lt ADJ_L BSPC
+//        ┌─────────────┬─────────────┬─────────────┬──────────────┬──────────────┬─────────────┐                ┌────────────────┐                ┌─────┬─────────────┬───────────────┬─────────────┬─────────────┬──────┐
+//        │   &trave    │      Q      │      W      │      E       │      R       │      T      │                │  &mmv MOVE_up  │                │  Y  │      U      │       I       │      O      │      P      │ del  │
+//        ├─────────────┼─────────────┼─────────────┼──────────────┼──────────────┼─────────────┼────────────────┼────────────────┼────────────────┼─────┼─────────────┼───────────────┼─────────────┼─────────────┼──────┤
+//        │ mt lctl esc │ &hml lctl A │ &hml lalt S │ &hml lgui D  │ &hml lsft F  │      G      │ &mmv MOVE_left │      lclk      │ &mmv MOVE_rght │  H  │ &hmr rsft J │  &hmr rgui K  │ &hmr lalt L │ &hmr rctl ; │  '   │
+//        ├─────────────┼─────────────┼─────────────┼──────────────┼──────────────┼─────────────┼────────────────┼────────────────┼────────────────┼─────┼─────────────┼───────────────┼─────────────┼─────────────┼──────┤
+//        │    lsft     │      Z      │      X      │      C       │      V       │      B      │      spc       │ &mmv MOVE_down │                │  N  │      M      │       ,       │      .      │      /      │ rsft │
+//        └─────────────┴─────────────┴─────────────┼──────────────┼──────────────┼─────────────┼────────────────┴────────────────┘                ├─────┼─────────────┼───────────────┼─────────────┴─────────────┴──────┘
+//                                                  │ lt NAV_L esc │ lt NUM_L tab │ mt lgui spc │                                                  │ ent │ lt SYM_L '  │ lt ADJ_L bspc │
+//                                                  └──────────────┴──────────────┴─────────────┘                                                  └─────┴─────────────┴───────────────┘
+      &trave          &kp Q          &kp W             &kp E             &kp R           &kp T                                 &mmv MOVE_UP                       &kp Y       &kp U                    &kp I              &kp O             &kp P             &kp DEL
+      &mt LCTRL ESC   &hml LCTRL A   &hml LEFT_ALT S   &hml LEFT_WIN D   &hml LSHIFT F   &kp G                &mmv MOVE_LEFT   &mkp LCLK        &mmv MOVE_RIGHT   &kp H       &hmr RSHIFT J            &hmr RIGHT_WIN K   &hmr LEFT_ALT L   &hmr RCTRL SEMI   &kp SINGLE_QUOTE
+      &kp LSHFT       &kp Z          &kp X             &kp C             &kp V           &kp B                &kp SPACE        &mmv MOVE_DOWN                     &kp N       &kp M                    &kp COMMA          &kp DOT           &kp FSLH          &kp RSHFT
+                                                       &lt NAV_L ESC     &lt NUM_L TAB   &mt LEFT_WIN SPACE                                                       &kp ENTER   &lt SYM_L SINGLE_QUOTE   &lt ADJ_L BSPC
                         >;
 
                         sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
@@ -144,10 +154,19 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
                 sym_layer {
                         display-name = "SYMBOL";
                         bindings = <
-   &kp GRAVE   &kp LEFT_BRACE   &kp AMPERSAND   &kp ASTRK     &kp LEFT_PARENTHESIS   &kp RIGHT_BRACE                            &mmv MOVE_UP                     &trans   &trans            &trans          &trans         &trans      &kp BACKSPACE
-   &kp ESC     &kp MINUS        &kp DOLLAR      &kp PERCENT   &kp CARET              &kp PIPE                         &mmv MOVE_LEFT  &mkp LCLK  &mmv MOVE_RIGHT  &trans   &kp RIGHT_SHIFT   &kp RIGHT_WIN   &kp LEFT_ALT   &kp RCTRL   &trans
-   &trans      &kp TILDE        &kp EXCL        &kp AT        &kp HASH               &kp RIGHT_PARENTHESIS  &trans                    &mmv MOVE_DOWN                   &trans   &trans            &trans          &trans         &trans      &trans
-                                                &none         &kp GRAVE              &kp UNDER                                                                      &trans   &trans            &trans
+//        ┌─────┬───┬───┬─────┬───┬───┐                ┌────────────────┐                ┌─────┬──────┬──────┬──────┬──────┬──────┐
+//        │  `  │ { │ & │  *  │ ( │ } │                │  &mmv MOVE_up  │                │     │      │      │      │      │ bspc │
+//        ├─────┼───┼───┼─────┼───┼───┼────────────────┼────────────────┼────────────────┼─────┼──────┼──────┼──────┼──────┼──────┤
+//        │ esc │ - │ $ │  %  │ ^ │ | │ &mmv MOVE_left │      lclk      │ &mmv MOVE_rght │     │ rsft │ rgui │ lalt │ rctl │      │
+//        ├─────┼───┼───┼─────┼───┼───┼────────────────┼────────────────┼────────────────┼─────┼──────┼──────┼──────┼──────┼──────┤
+//        │     │ ~ │ ! │  @  │ # │ ) │                │ &mmv MOVE_down │                │     │      │      │      │      │      │
+//        └─────┴───┴───┼─────┼───┼───┼────────────────┴────────────────┘                ├─────┼──────┼──────┼──────┴──────┴──────┘
+//                      │     │ ` │ _ │                                                  │     │      │      │
+//                      └─────┴───┴───┘                                                  └─────┴──────┴──────┘
+      &kp GRAVE   &kp LEFT_BRACE   &kp AMPERSAND   &kp ASTRK     &kp LEFT_PARENTHESIS   &kp RIGHT_BRACE                          &mmv MOVE_UP                       &trans   &trans            &trans          &trans         &trans      &kp BACKSPACE
+      &kp ESC     &kp MINUS        &kp DOLLAR      &kp PERCENT   &kp CARET              &kp PIPE                &mmv MOVE_LEFT   &mkp LCLK        &mmv MOVE_RIGHT   &trans   &kp RIGHT_SHIFT   &kp RIGHT_WIN   &kp LEFT_ALT   &kp RCTRL   &trans
+      &trans      &kp TILDE        &kp EXCL        &kp AT        &kp HASH               &kp RIGHT_PARENTHESIS   &trans           &mmv MOVE_DOWN                     &trans   &trans            &trans          &trans         &trans      &trans
+                                                   &none         &kp GRAVE              &kp UNDER                                                                   &trans   &trans            &trans
                         >;
 
                         sensor-bindings = <&scroll_encoder>;
@@ -155,10 +174,19 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
                 num_layer {
                         display-name = "NUMBER";
                         bindings = <
-   &kp LG(GRAVE)   &trans             &trans         &trans         &trans           &trans                                  &mmv MOVE_UP                     &kp LEFT_BRACKET   &kp N7         &kp N8         &kp N9         &kp RIGHT_BRACKET   &kp BACKSPACE
-   &kp ESC         &kp LEFT_CONTROL   &kp LEFT_ALT   &kp LEFT_WIN   &kp LEFT_SHIFT   &trans                    &mmv MOVE_LEFT  &mkp LCLK  &mmv MOVE_RIGHT  &kp MINUS          &kp NUMBER_4   &kp NUMBER_5   &kp NUMBER_6   &kp PLUS            &kp EQUAL
-   &trans          &trans             &trans         &trans         &trans           &trans       &trans                      &mmv MOVE_DOWN                   &kp COMMA          &kp NUMBER_1   &kp NUMBER_2   &kp NUMBER_3   &kp BACKSLASH       &kp SLASH
-                                                     &trans         &trans           &trans                                                                &trans             &kp N0         &kp DOT
+//        ┌─────────┬──────────────┬──────┬──────┬──────┬─────┐                ┌────────────────┐                ┌─────┬───┬───┬───┬───┬──────┐
+//        │ lgui(`) │              │      │      │      │     │                │  &mmv MOVE_up  │                │  [  │ 7 │ 8 │ 9 │ ] │ bspc │
+//        ├─────────┼──────────────┼──────┼──────┼──────┼─────┼────────────────┼────────────────┼────────────────┼─────┼───┼───┼───┼───┼──────┤
+//        │   esc   │ left_CONTROL │ lalt │ lgui │ lsft │     │ &mmv MOVE_left │      lclk      │ &mmv MOVE_rght │  -  │ 4 │ 5 │ 6 │ + │  =   │
+//        ├─────────┼──────────────┼──────┼──────┼──────┼─────┼────────────────┼────────────────┼────────────────┼─────┼───┼───┼───┼───┼──────┤
+//        │         │              │      │      │      │     │                │ &mmv MOVE_down │                │  ,  │ 1 │ 2 │ 3 │ \ │  /   │
+//        └─────────┴──────────────┴──────┼──────┼──────┼─────┼────────────────┴────────────────┘                ├─────┼───┼───┼───┴───┴──────┘
+//                                        │      │      │     │                                                  │     │ 0 │ . │
+//                                        └──────┴──────┴─────┘                                                  └─────┴───┴───┘
+      &kp LG(GRAVE)   &trans             &trans         &trans         &trans           &trans                    &mmv MOVE_UP                       &kp LEFT_BRACKET   &kp N7         &kp N8         &kp N9         &kp RIGHT_BRACKET   &kp BACKSPACE
+      &kp ESC         &kp LEFT_CONTROL   &kp LEFT_ALT   &kp LEFT_WIN   &kp LEFT_SHIFT   &trans   &mmv MOVE_LEFT   &mkp LCLK        &mmv MOVE_RIGHT   &kp MINUS          &kp NUMBER_4   &kp NUMBER_5   &kp NUMBER_6   &kp PLUS            &kp EQUAL
+      &trans          &trans             &trans         &trans         &trans           &trans   &trans           &mmv MOVE_DOWN                     &kp COMMA          &kp NUMBER_1   &kp NUMBER_2   &kp NUMBER_3   &kp BACKSLASH       &kp SLASH
+                                                        &trans         &trans           &trans                                                       &trans             &kp N0         &kp DOT
                         >;
 
                         sensor-bindings = <&scroll_encoder>;
@@ -166,10 +194,19 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
                 nav_layer {
                     display-name = "NAV";
                     bindings = <
-   &kp GRAVE   &kp N1             &kp N2         &kp N3         &kp N4           &kp N5                                &mmv MOVE_UP                     &kp N6           &kp HOME             &kp END               &kp N9            &kp N0   &kp BACKSPACE
-   &kp ESC     &kp LEFT_CONTROL   &kp LEFT_ALT   &kp LEFT_WIN   &kp LEFT_SHIFT   &trans                  &mmv MOVE_LEFT  &mkp LCLK  &mmv MOVE_RIGHT  &kp LEFT_ARROW   &kp DOWN_ARROW       &kp UP_ARROW          &kp RIGHT_ARROW   &none    &none
-   &trans      &trans             &trans         &trans         &trans           &trans       &trans                    &mmv MOVE_DOWN                   &trans           &kp LG(LEFT_BRACE)   &kp LG(RIGHT_BRACE)   &trans            &none    &none
-                                                 &trans         &trans           &trans                                                                &trans           &trans               &mo FUN_L
+//        ┌─────┬──────────────┬──────┬──────┬──────┬─────┐                ┌────────────────┐                ┌──────┬─────────┬──────────┬──────┬─────┬──────┐
+//        │  `  │      1       │  2   │  3   │  4   │  5  │                │  &mmv MOVE_up  │                │  6   │  home   │   end    │  9   │  0  │ bspc │
+//        ├─────┼──────────────┼──────┼──────┼──────┼─────┼────────────────┼────────────────┼────────────────┼──────┼─────────┼──────────┼──────┼─────┼──────┤
+//        │ esc │ left_CONTROL │ lalt │ lgui │ lsft │     │ &mmv MOVE_left │      lclk      │ &mmv MOVE_rght │ left │  down   │    up    │ rght │     │      │
+//        ├─────┼──────────────┼──────┼──────┼──────┼─────┼────────────────┼────────────────┼────────────────┼──────┼─────────┼──────────┼──────┼─────┼──────┤
+//        │     │              │      │      │      │     │                │ &mmv MOVE_down │                │      │ lgui({) │ lgui(})  │      │     │      │
+//        └─────┴──────────────┴──────┼──────┼──────┼─────┼────────────────┴────────────────┘                ├──────┼─────────┼──────────┼──────┴─────┴──────┘
+//                                    │      │      │     │                                                  │      │         │ mo FUN_L │
+//                                    └──────┴──────┴─────┘                                                  └──────┴─────────┴──────────┘
+      &kp GRAVE   &kp N1             &kp N2         &kp N3         &kp N4           &kp N5                    &mmv MOVE_UP                       &kp N6           &kp HOME             &kp END               &kp N9            &kp N0   &kp BACKSPACE
+      &kp ESC     &kp LEFT_CONTROL   &kp LEFT_ALT   &kp LEFT_WIN   &kp LEFT_SHIFT   &trans   &mmv MOVE_LEFT   &mkp LCLK        &mmv MOVE_RIGHT   &kp LEFT_ARROW   &kp DOWN_ARROW       &kp UP_ARROW          &kp RIGHT_ARROW   &none    &none
+      &trans      &trans             &trans         &trans         &trans           &trans   &trans           &mmv MOVE_DOWN                     &trans           &kp LG(LEFT_BRACE)   &kp LG(RIGHT_BRACE)   &trans            &none    &none
+                                                    &trans         &trans           &trans                                                       &trans           &trans               &mo FUN_L
                     >;
 
                     sensor-bindings = <&scroll_encoder>;
@@ -178,10 +215,19 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
                 adj_layer {
                     display-name = "ADJUST";
                     bindings = <
-   &kp RA(GRAVE)   &trans          &trans   &kp RA(E)       &trans          &trans                                     &mmv MOVE_UP                     &trans       &trans         &trans         &trans   &trans   &trans
-   &none           &kp RA(TILDE)   &none    &none           &kp RA(CARET)   &none                            &mmv MOVE_LEFT  &mkp LCLK  &mmv MOVE_RIGHT  &kp C_MUTE   &kp C_VOL_DN   &kp C_VOL_UP   &none    &none    &caps_word
-   &none           &none           &none    &kp RA(COMMA)   &none           &none          &trans                          &mmv MOVE_DOWN                   &none        &none          &none          &none    &none    &kp CAPS
-                                            &mo FUN_L       &kp RA(GRAVE)   &kp RA(SINGLE_QUOTE)                                                         &trans       &trans         &trans
+//        ┌──────────┬─────────┬─────┬──────────┬─────────┬─────────┐                ┌────────────────┐                ┌──────┬─────────┬─────────┬─────────┬─────────┬───────┐
+//        │ ralt(`)  │         │     │ ralt(')  │         │         │                │  &mmv MOVE_up  │                │      │ ug_ off │ ug_ on  │ ug_ eff │         │       │
+//        ├──────────┼─────────┼─────┼──────────┼─────────┼─────────┼────────────────┼────────────────┼────────────────┼──────┼─────────┼─────────┼─────────┼─────────┼───────┤
+//        │ epwr_ on │ ralt(~) │     │          │ ralt(6) │         │ &mmv MOVE_left │      lclk      │ &mmv MOVE_rght │ mute │  vold   │  volu   │         │         │ capsw │
+//        ├──────────┼─────────┼─────┼──────────┼─────────┼─────────┼────────────────┼────────────────┼────────────────┼──────┼─────────┼─────────┼─────────┼─────────┼───────┤
+//        │ epwr_ on │         │     │ ralt(,)  │         │         │                │ &mmv MOVE_down │                │      │ ug_ efr │ ug_ sp+ │ ug_ br+ │ ug_ br- │ caps  │
+//        └──────────┴─────────┴─────┼──────────┼─────────┼─────────┼────────────────┴────────────────┘                ├──────┼─────────┼─────────┼─────────┴─────────┴───────┘
+//                                   │ mo FUN_L │ ralt(`) │ ralt(') │                                                  │      │         │         │
+//                                   └──────────┴─────────┴─────────┘                                                  └──────┴─────────┴─────────┘
+      &kp RA(GRAVE)       &trans          &trans   &kp RA(SINGLE_QUOTE)   &trans             &trans                                  &mmv MOVE_UP                       &none        &rgb_ug RGB_OFF   &rgb_ug RGB_ON    &rgb_ug RGB_EFF   &trans            &trans
+      &ext_power EP_ON    &kp RA(TILDE)   &none    &none                  &kp RA(NUMBER_6)   &none                  &mmv MOVE_LEFT   &mkp LCLK        &mmv MOVE_RIGHT   &kp C_MUTE   &kp C_VOL_DN      &kp C_VOL_UP      &none             &none             &caps_word
+      &ext_power EP_OFF   &none           &none    &kp RA(COMMA)          &none              &none                  &trans           &mmv MOVE_DOWN                     &none        &rgb_ug RGB_EFR   &rgb_ug RGB_SPI   &rgb_ug RGB_BRI   &rgb_ug RGB_BRD   &kp CAPS
+                                                   &mo FUN_L              &kp RA(GRAVE)      &kp RA(SINGLE_QUOTE)                                                       &trans       &trans            &trans
                     >;
 
                     sensor-bindings = <&scroll_encoder>;
@@ -190,10 +236,19 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
                 fun_layer {
                     display-name = "FUNCTION";
                     bindings = <
-   &kp GRAVE   &bt BT_SEL 0       &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3     &bt BT_SEL 4                            &mmv MOVE_UP                     &trans   &kp F7   &kp F8   &kp F9   &kp F10   &bt BT_CLR
-   &kp ESC     &kp LEFT_CONTROL   &kp LEFT_ALT   &kp LEFT_WIN   &kp LEFT_SHIFT   &trans                    &mmv MOVE_LEFT  &mkp LCLK  &mmv MOVE_RIGHT  &trans   &kp F4   &kp F5   &kp F6   &kp F11   &trans
-   &trans      &trans             &trans         &trans         &trans           &trans       &trans                      &mmv MOVE_DOWN                   &trans   &kp F1   &kp F2   &kp F3   &kp F12   &trans
-                                                 &trans         &trans           &trans                                                                &trans   &trans   &trans
+//        ┌─────┬──────────────┬──────────┬───────────┬──────────┬──────────┐                ┌────────────────┐                ┌─────┬─────┬─────┬────┬─────┬────────┐
+//        │  `  │   bt_sel 0   │ bt_sel 1 │ bt_sel 2  │ bt_sel 3 │ bt_sel 4 │                │  &mmv MOVE_up  │                │     │ f7  │ f8  │ f9 │ f10 │ bt_clr │
+//        ├─────┼──────────────┼──────────┼───────────┼──────────┼──────────┼────────────────┼────────────────┼────────────────┼─────┼─────┼─────┼────┼─────┼────────┤
+//        │ esc │ left_CONTROL │   lalt   │   lgui    │   lsft   │          │ &mmv MOVE_left │      lclk      │ &mmv MOVE_rght │     │ f4  │ f5  │ f6 │ f11 │        │
+//        ├─────┼──────────────┼──────────┼───────────┼──────────┼──────────┼────────────────┼────────────────┼────────────────┼─────┼─────┼─────┼────┼─────┼────────┤
+//        │     │   epwr_ on   │ epwr_ on │ epwr_ tog │          │          │                │ &mmv MOVE_down │                │     │ f1  │ f2  │ f3 │ f12 │        │
+//        └─────┴──────────────┴──────────┼───────────┼──────────┼──────────┼────────────────┴────────────────┘                ├─────┼─────┼─────┼────┴─────┴────────┘
+//                                        │           │          │          │                                                  │     │     │     │
+//                                        └───────────┴──────────┴──────────┘                                                  └─────┴─────┴─────┘
+      &kp GRAVE   &bt BT_SEL 0       &bt BT_SEL 1        &bt BT_SEL 2        &bt BT_SEL 3     &bt BT_SEL 4                    &mmv MOVE_UP                       &trans   &kp F7   &kp F8   &kp F9   &kp F10   &bt BT_CLR
+      &kp ESC     &kp LEFT_CONTROL   &kp LEFT_ALT        &kp LEFT_WIN        &kp LEFT_SHIFT   &trans         &mmv MOVE_LEFT   &mkp LCLK        &mmv MOVE_RIGHT   &trans   &kp F4   &kp F5   &kp F6   &kp F11   &trans
+      &trans      &ext_power EP_ON   &ext_power EP_OFF   &ext_power EP_TOG   &trans           &trans         &trans           &mmv MOVE_DOWN                     &trans   &kp F1   &kp F2   &kp F3   &kp F12   &trans
+                                                         &trans              &trans           &trans                                                             &trans   &trans   &trans
                     >;
 
                     sensor-bindings = <&rgb_encoder>;

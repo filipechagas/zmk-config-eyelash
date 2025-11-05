@@ -3,3 +3,7 @@ zmk/
 modules/
 tools/
 .west/
+zmk-helpers/
+zephyr/
+eyelash_corne/
+output/
