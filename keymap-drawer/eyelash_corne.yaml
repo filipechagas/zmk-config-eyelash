@@ -7,7 +7,7 @@ layers:
   - E
   - R
   - T
-  - {t: '$$mdi:menu-up$$', s: '$$mdi:mouse$$'}
+  - HOME
   - Y
   - U
   - I
@@ -20,9 +20,9 @@ layers:
   - '&hml LEFT_WIN D'
   - '&hml LSHIFT F'
   - G
-  - {t: '$$mdi:menu-left$$', s: '$$mdi:mouse$$'}
-  - $$mdi:mouse-left-click-outline$$
-  - {t: '$$mdi:menu-right$$', s: '$$mdi:mouse$$'}
+  - $$mdi:skip-previous$$
+  - $$mdi:printer-outline$$
+  - $$mdi:skip-next$$
   - H
   - '&hmr RSHIFT J'
   - '&hmr RIGHT_WIN K'
@@ -36,7 +36,7 @@ layers:
   - V
   - B
   - PLAY PAUSE
-  - {t: '$$mdi:menu-down$$', s: '$$mdi:mouse$$'}
+  - END
   - N
   - M
   - {t: ',', s: <}
