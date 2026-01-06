@@ -35,7 +35,7 @@ layers:
   - C
   - V
   - B
-  - PLAY PAUSE
+  - $$mdi:volume-off$$
   - END
   - N
   - M
